@@ -14,8 +14,8 @@ generatingcount2 = foreach countingpeople2 generate COUNT(agegroup2) as numberof
 generatingcount3 = foreach countingpeople3 generate COUNT(agegroup3) as numberofpeople3;
 generatingcount4 = foreach countingpeople4 generate COUNT(agegroup4) as numberofpeople4;  
 caluculatingincome = group agegroup3 all;
-averageincomeofhighestedu = foreach caluculatingincome generate group as ROUND(AVG(agegroup3.income)) as averageofagegroup;
+averageincomeofhighestedu = foreach caluculatingincome generate group as AVG(agegroup3.income) as averageofagegroup;
 findingpeoplelowincome = filter loadingdata by  eductaion=='Less than 1st grade' and age>14;
 averageincomeleast = group findingpeoplelowincome all;
-calaverageincomeleast = foreach averageincomeleast generate ROUND(AVG(findingpeoplelowincome.income)) as requiredaverage;
+calaverageincomeleast = foreach averageincomeleast generate AVG(findingpeoplelowincome.income) as requiredaverage;
 percentagebagg = foreach calaverageincomeleast generate calaverageincomeleast.requiredaverage,(calaverageincomeleast.requiredaverage-averageincomeofhighestedu.averageofagegroup)*100/averageincomeofhighestedu.averageofagegroup;
